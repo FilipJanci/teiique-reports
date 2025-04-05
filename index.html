@@ -4,130 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TEIQue Report Access</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    h1 {
-      color: #333;
-      margin-top: 3rem;
-    }
-
-    p {
-      color: #555;
-    }
-
-    .container {
-      margin-top: 2rem;
-    }
-
-    input[type="text"] {
-      padding: 0.5rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 200px;
-    }
-
-    button {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    .emoji-strip {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      height: 40px;
-      margin-top: 1rem;
-    }
-
-    .emoji-track {
-      display: flex;
-      width: max-content;
-      animation: scroll 30s linear infinite;
-    }
-
-    .emoji-track span {
-      font-size: 1.5rem;
-      margin: 0 1rem;
-    }
-
-    .fade-left, .fade-right {
-      position: absolute;
-      top: 0;
-      width: 40px;
-      height: 100%;
-      z-index: 2;
-    }
-
-    .fade-left {
-      left: 0;
-      background: linear-gradient(to right, #f4f4f4, transparent);
-    }
-
-    .fade-right {
-      right: 0;
-      background: linear-gradient(to left, #f4f4f4, transparent);
-    }
-
-    @keyframes scroll {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(-50%);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>TEIQue-SF Vyhodnotenie</h1>
-  <p>Zadaj svoje zviera (napr. "sova") pre zobrazenie svojho osobného PDF:</p>
-  <div class="container">
-    <input type="text" id="animalInput" placeholder="napr. vlk" />
-    <button onclick="openPDF()">Zobraziť vyhodnotenie</button>
-  </div>
-
-  <div class="emoji-strip">
-    <div class="fade-left"></div>
-    <div class="emoji-track">
-      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
-      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+  <div class="main-box">
+    <h1>TEIQue-SF Vyhodnotenie</h1>
+    <p>Zadaj svoje zviera (napr. "sova") pre zobrazenie svojho osobného PDF:</p>
+    <div class="container">
+      <input type="text" id="animalInput" placeholder="napr. vlk" />
+      <button onclick="openPDF()">Zobraziť vyhodnotenie</button>
+      <div id="errorMessage" class="error-message"></div>
     </div>
-    <div class="fade-right"></div>
+
+    <div class="emoji-strip">
+      <div class="fade-left"></div>
+      <div class="emoji-track">
+        <span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+        <span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+      </div>
+      <div class="fade-right"></div>
+    </div>
   </div>
 
-  <script>
-    function openPDF() {
-      const input = document.getElementById('animalInput').value.trim().toLowerCase();
-      if (!input) {
-        alert('Zadaj prosím zviera.');
-        return;
-      }
-      const url = `pdfs/${input}.pdf`;
-      fetch(url).then(res => {
-        if (res.ok) {
-          window.open(url, '_blank');
-        } else {
-          alert('Vyhodnotenie pre toto zviera neexistuje. Skontroluj si názov.');
-        }
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>

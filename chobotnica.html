@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EQ Výsledok – Chobotnica</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 2rem auto;
+        background-color: #d1fae5;
+        border: 2px solid #34d399;
+        border-radius: 1rem;
+        padding: 2rem;
+      }
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+      canvas {
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🐙 CHOBOTNICA</h1>
+    <p><strong>Globálne EQ:</strong> 5.2</p>
+
+    <canvas id="eqChart" width="400" height="300"></canvas>
+
+    <p>
+      Tvoje EQ je vyvážené, no máš silnú schopnosť prispôsobiť sa rôznym situáciám. Si ako chobotnica, ktorá zvládne veľa rôznych úloh naraz, a aj keď si občas trochu introspektívny, rýchlo sa prispôsobíš.
+    </p>
+
+    <script>
+      const ctx = document.getElementById("eqChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Well-being", "Sebakontrola", "Emocionalita", "Sociabilita"],
+          datasets: [{
+            label: "Skóre",
+            data: [5.4, 5.0, 5.3, 5.8],
+            backgroundColor: "#34d399",
+            borderRadius: 10
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 7
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

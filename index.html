@@ -5,27 +5,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TEIQue Report Access</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .main-box {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input[type="text"] {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #d1d5db;
+    }
+
+    button {
+      padding: 0.75rem;
+      background-color: #10b981;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #059669;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    .emoji-strip {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin-top: 2rem;
+      overflow: hidden;
+      height: 2rem;
+    }
+
+    .emoji-track {
+      display: flex;
+      gap: 1rem;
+      white-space: nowrap;
+      animation: scroll 30s linear infinite;
+    }
+
+    .emoji-track span {
+      font-size: 1.5rem;
+    }
+
+    .fade-left,
+    .fade-right {
+      position: absolute;
+      top: 0;
+      width: 2rem;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .fade-left {
+      left: 0;
+      background: linear-gradient(to right, #f8fafc 0%, transparent 100%);
+    }
+
+    .fade-right {
+      right: 0;
+      background: linear-gradient(to left, #f8fafc 0%, transparent 100%);
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="main-box">
-    <h1>TEIQue-SF Vyhodnotenie</h1>
-    <p>Zadaj svoje zviera (napr. "sova") pre zobrazenie svojho osobného PDF:</p>
+    <h1>Zadaj svoje zviera 🐾</h1>
+    <p>Zadávaj presne, ako si ho napísal v dotazníku (napr. "sova", "líška").</p>
     <div class="container">
       <input type="text" id="animalInput" placeholder="napr. vlk" />
-      <button onclick="openPDF()">Zobraziť vyhodnotenie</button>
+      <button onclick="openPDF()">Zobraziť PDF</button>
       <div id="errorMessage" class="error-message"></div>
-    </div>
-
-    <div class="emoji-strip">
-      <div class="fade-left"></div>
-      <div class="emoji-track">
-        <span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
-        <span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
-      </div>
-      <div class="fade-right"></div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <div class="emoji-strip">
+    <div class="fade-left"></div>
+    <div class="emoji-track">
+      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+    </div>
+    <div class="fade-right"></div>
+  </div>
+
+  <script>
+    function openPDF() {
+      const animal = document.getElementById("animalInput").value.trim().toLowerCase();
+      const errorMessage = document.getElementById("errorMessage");
+      if (!animal) {
+        errorMessage.textContent = "Prosím, zadaj zviera.";
+        return;
+      }
+
+      const filePath = `pdfs/${animal}.pdf`;
+      fetch(filePath)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("PDF sa nenašlo.");
+          }
+          window.open(filePath, "_blank");
+        })
+        .catch((error) => {
+          errorMessage.textContent = "Súbor neexistuje alebo názov nie je správny.";
+        });
+    }
+  </script>
 </body>
 </html>

@@ -63,6 +63,7 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       width: 100%;
+      min-width: 200px; /* Udrží šírku tlačidla */
     }
 
     button:hover {
@@ -127,9 +128,9 @@
 <body>
   <div class="main-box">
     <h1>Zadaj svoje zviera 🐾</h1>
-    <p>Zadávaj presne, ako si ho napísal v dotazníku (napr. "sova", "líška").</p>
+    <p>Zadávaj tak, ako si ho napísal v dotazníku (napr. "sova", "líška").</p>
     <div class="container">
-      <input type="text" id="animalInput" placeholder="napr. vlk" />
+      <input type="text" id="animalInput" placeholder="napr. vlk" onkeydown="checkEnter(event)" />
       <button onclick="openPDF()">Zobraziť PDF</button>
       <div id="errorMessage" class="error-message">&nbsp;</div>
     </div>
@@ -168,6 +169,13 @@
         .catch((error) => {
           errorMessage.textContent = "Súbor neexistuje alebo názov nie je správny.";
         });
+    }
+
+    // Funkcia pre spracovanie stlačenia Enteru
+    function checkEnter(event) {
+      if (event.key === "Enter") {
+        openPDF();
+      }
     }
   </script>
 </body>

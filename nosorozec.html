@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EQ Výsledok – Nosorožec</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 2rem auto;
+        background-color: #f3f4f6;
+        border: 2px solid #9ca3af;
+        border-radius: 1rem;
+        padding: 2rem;
+      }
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+      canvas {
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🦏 NOSOROŽEC</h1>
+    <p><strong>Globálne EQ:</strong> 4.3</p>
+
+    <canvas id="eqChart" width="400" height="300"></canvas>
+
+    <p>
+      Celkové EQ máš úplne v pohode – si zdanlivo tvrdý, ale vnútri sa skrýva dosť citlivosti.
+      Ľudia ťa možno nečítajú hneď, ale tí, čo ťa spoznajú, vedia, že si lojálny a máš dobré srdce.
+    </p>
+
+    <script>
+      const ctx = document.getElementById("eqChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Well-being", "Sebakontrola", "Emocionalita", "Sociabilita"],
+          datasets: [{
+            label: "Skóre",
+            data: [6.0, 3.3, 3.9, 4.7],
+            backgroundColor: "#9ca3af",
+            borderRadius: 10
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 7
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

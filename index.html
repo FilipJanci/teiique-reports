@@ -47,12 +47,14 @@
 
     input[type="text"] {
       padding: 0.75rem;
-      font-size: 1rem;
+      font-size: 1.1rem;
       border-radius: 0.5rem;
       border: 1px solid #d1d5db;
       margin: 0 auto;
       display: block;
       text-align: center;
+      width: 100%;
+      box-sizing: border-box; /* Zaručí rovnakú šírku ako tlačidlo */
     }
 
     button {
@@ -65,6 +67,8 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       width: 100%;
+      font-size: 1.1rem; /* Zvýšená veľkosť textu */
+      box-sizing: border-box; /* Zaručí rovnakú šírku ako input */
     }
 
     button:hover {

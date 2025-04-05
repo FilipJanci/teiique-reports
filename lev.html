@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EQ Výsledok – Lev</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 600px;
+        margin: 2rem auto;
+        background-color: #fef9c3;
+        border: 2px solid #facc15;
+        border-radius: 1rem;
+        padding: 2rem;
+      }
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+      canvas {
+        margin: 1rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🦁 LEV</h1>
+    <p><strong>Globálne EQ:</strong> 4.1</p>
+
+    <canvas id="eqChart" width="400" height="300"></canvas>
+
+    <p>
+      Tvoje výsledky sú pekne vyvážené. Máš silnú emocionalitu a dobre
+      vyvinutý zmysel pre druhých, no občas môžeš cítiť menšiu stabilitu
+      vnútri. Máš v sebe silu, ale aj citlivosť.
+    </p>
+
+    <script>
+      const ctx = document.getElementById("eqChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Well-being", "Sebakontrola", "Emocionalita", "Sociabilita"],
+          datasets: [{
+            label: "Skóre",
+            data: [3.3, 3.7, 4.7, 4.0],
+            backgroundColor: "#facc15",
+            borderRadius: 10
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 7
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

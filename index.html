@@ -1,74 +1,132 @@
-<!-- TEIQue-SF PDF portal - complete HTML/JS site -->
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TEIQue Vyhodnotenie</title>
+  <title>TEIQue Report Access</title>
   <style>
     body {
-      font-family: system-ui, sans-serif;
-      background: #f8fafc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
       margin: 0;
-    }
-    .container {
-      background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 0;
       text-align: center;
     }
-    input {
-      padding: 0.6rem;
+
+    h1 {
+      color: #333;
+      margin-top: 3rem;
+    }
+
+    p {
+      color: #555;
+    }
+
+    .container {
+      margin-top: 2rem;
+    }
+
+    input[type="text"] {
+      padding: 0.5rem;
       font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
       width: 200px;
     }
+
     button {
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 1rem;
       font-size: 1rem;
-      margin-left: 0.5rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
     }
-    .error {
-      color: red;
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .emoji-strip {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      height: 40px;
       margin-top: 1rem;
+    }
+
+    .emoji-track {
+      display: flex;
+      width: max-content;
+      animation: scroll 30s linear infinite;
+    }
+
+    .emoji-track span {
+      font-size: 1.5rem;
+      margin: 0 1rem;
+    }
+
+    .fade-left, .fade-right {
+      position: absolute;
+      top: 0;
+      width: 40px;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .fade-left {
+      left: 0;
+      background: linear-gradient(to right, #f4f4f4, transparent);
+    }
+
+    .fade-right {
+      right: 0;
+      background: linear-gradient(to left, #f4f4f4, transparent);
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
     }
   </style>
 </head>
 <body>
+  <h1>TEIQue-SF Vyhodnotenie</h1>
+  <p>Zadaj svoje zviera (napr. "sova") pre zobrazenie svojho osobného PDF:</p>
   <div class="container">
-    <h2>Zadaj svoje zviera 🐾</h2>
-    <p style="margin-bottom: 1rem; color: #555">Zadávaj presne, ako si ho napísal v dotazníku (napr. "sova", "líška").</p>
     <input type="text" id="animalInput" placeholder="napr. vlk" />
-    <button onclick="findPDF()">Zobraziť PDF</button>
-    <div class="error" id="error"></div>
+    <button onclick="openPDF()">Zobraziť vyhodnotenie</button>
+  </div>
+
+  <div class="emoji-strip">
+    <div class="fade-left"></div>
+    <div class="emoji-track">
+      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+    </div>
+    <div class="fade-right"></div>
   </div>
 
   <script>
-    function findPDF() {
-      const input = document.getElementById("animalInput").value.trim().toLowerCase();
-      const errorBox = document.getElementById("error");
-      errorBox.textContent = "";
-
+    function openPDF() {
+      const input = document.getElementById('animalInput').value.trim().toLowerCase();
       if (!input) {
-        errorBox.textContent = "Prosím zadaj zviera.";
+        alert('Zadaj prosím zviera.');
         return;
       }
-
-      const pdfPath = `pdfs/${input}.pdf`;
-
-      fetch(pdfPath)
-        .then(res => {
-          if (!res.ok) throw new Error("Nenašli sme PDF.");
-          window.open(pdfPath, "_blank");
-        })
-        .catch(() => {
-          errorBox.textContent = `PDF pre zviera "${input}" sa nenašlo. Skontroluj pravopis.`;
-        });
+      const url = `pdfs/${input}.pdf`;
+      fetch(url).then(res => {
+        if (res.ok) {
+          window.open(url, '_blank');
+        } else {
+          alert('Vyhodnotenie pre toto zviera neexistuje. Skontroluj si názov.');
+        }
+      });
     }
   </script>
 </body>

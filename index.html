@@ -164,8 +164,9 @@
       const normalizedAnimal = animal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       const validAnimals = [
-        "líška", "nosorožec", "lev", "chobotnica", "klokan"
-      ];
+          "líška", "nosorožec", "lev", "chobotnica", "klokan"
+        ].map(a => a.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+
 
       // Skontrolujeme, či zviera existuje v zozname platných zvierat
       if (validAnimals.includes(normalizedAnimal)) {

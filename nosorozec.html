@@ -2,7 +2,7 @@
 <html lang="sk">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EQ Výsledok – Nosorožec</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -10,8 +10,8 @@
         font-family: sans-serif;
         max-width: 600px;
         margin: 2rem auto;
-        background-color: #f3f4f6;
-        border: 2px solid #9ca3af;
+        background-color: #e5e7eb; /* Šedé pozadie */
+        border: 2px solid #facc15;
         border-radius: 1rem;
         padding: 2rem;
       }
@@ -26,18 +26,111 @@
       canvas {
         margin: 1rem 0;
       }
+
+      /* Všeobecný box pre info o TEIQue */
+      .info-box {
+        background-color: #ffffff; /* Biele pozadie */
+        padding: 1.5rem;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        border: 2px solid #facc15;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-box h2 {
+        font-size: 1.6rem;
+        color: #f59e0b;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+
+      .info-box p,
+      .info-box ul {
+        font-size: 1.1rem;
+        color: #4b5563;
+        line-height: 1.6;
+      }
+
+      .info-box ul {
+        padding-left: 1.5rem;
+      }
+
+      .info-box ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Formátovanie hlavičky a výsledkov zvieraťa */
+      .result-box {
+        background-color: #ffffff; /* Biele pozadie */
+        padding: 1.5rem;
+        border-radius: 1rem;
+        border: 2px solid #facc15;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .result-box h1 {
+        font-size: 1.8rem;
+        color: #f59e0b;
+      }
+
+      .result-box p {
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      canvas {
+        margin-top: 1rem;
+      }
     </style>
   </head>
   <body>
-    <h1>🦏 NOSOROŽEC</h1>
-    <p><strong>Globálne EQ:</strong> 4.3</p>
+    <!-- Všeobecné informácie o TEIQue -->
+    <div class="info-box">
+      <h2>O TEIQue-SF dotazníku</h2>
+      <p>
+        TEIQue-SF je dotazník, ktorý meria „trait emotional intelligence“, teda osobnostne zakorenenú schopnosť pracovať s emóciami – nie momentálnu náladu, ale dlhodobý emočný štýl človeka. Výsledky sa pohybujú na 7-bodovej škále, pričom treba mať na pamäti, že adolescenti často (nie vždy) skórujú nižšie ako dospelí ľudia v EQ.
+      </p>
+      <h3>Škála:</h3>
+      <ul>
+        <li> > 2.3 – vysoký podpriemer</li>
+        <li>2.4 – 3.2 – podpriemer</li>
+        <li>3.3 – 4.7 – priemer</li>
+        <li>4.8 – 5.6 – nadpriemer</li>
+        <li>5.7 < – vysoký nadpriemer</li>
+      </ul>
+      <p>
+        Dotazník meria celkové EQ a k tomu ešte štyri špecifické oblasti:
+      </p>
+      <ul>
+        <li><strong>Well-being</strong> – spokojnosť, optimizmus, sebavedomie</li>
+        <li><strong>Sebakontrola</strong> – schopnosť zvládať stres, impulzy</li>
+        <li><strong>Emocionalita</strong> – porozumenie vlastným a cudzím emóciám, empatia</li>
+        <li><strong>Sociabilita</strong> – komunikačné a sociálne zručnosti</li>
+      </ul>
+    </div>
 
-    <canvas id="eqChart" width="400" height="300"></canvas>
+    <!-- Výsledky zvieraťa -->
+    <div class="result-box">
+      <h1>🦏 NOSOROŽEC</h1>
+      <p><strong>Globálne EQ:</strong> 4.3</p>
 
-    <p>
-      Celkové EQ máš úplne v pohode – si zdanlivo tvrdý, ale vnútri sa skrýva dosť citlivosti.
-      Ľudia ťa možno nečítajú hneď, ale tí, čo ťa spoznajú, vedia, že si lojálny a máš dobré srdce.
-    </p>
+      <canvas id="eqChart" width="400" height="300"></canvas>
+
+      <p>
+        Tvoje výsledky naznačujú, že máš silnú schopnosť sebakontroly, no môžeš sa ešte rozvinúť v oblasti emocionality a sociability. Máš pevné základy a vieš držať veci pod kontrolou, ale práca na empatii a sociálnych zručnostiach ti pomôže rásť.
+      </p>
+      <p>
+        <strong>Well-being:</strong> 6.0 – Skóre 6 znamená, že si spokojná a vyrovnaná osoba, ktorá vie, čo ju robí šťastnou. To je na tvoj vek až trochu nezvyčajné a ukazuje, že máš pevné vnútorné nastavenie a dobrý vzťah k sebe samej.
+      </p>
+      <p>
+        <strong>Sociabilita:</strong> 4.7 – Máš silné sociálne zručnosti, vieš vytvoriť príjemnú atmosféru, a druhí sa pri tebe cítia dobre. Možno občas zjemníš napätie v skupine alebo prinesieš pozitívnu náladu, čo je vzácne.
+      </p>
+      <p>
+        <strong>Sebakontrola:</strong> 3.3 – Sebakontrolu máš na spodnej hranici priemeru. Nižšia sebakontrola je v tomto veku bežná, ale vieš o tom a môžeš to jemne trénovať.
+      </p>
+      <p>
+        <strong>Emocionalita:</strong> 3.9 – Tvoja emocionalita je na dobrom úrovni, no môžeš sa zamerať na ešte lepšie pochopenie svojich emócií a emócií druhých.
+      </p>
+    </div>
 
     <script>
       const ctx = document.getElementById("eqChart").getContext("2d");
@@ -48,7 +141,7 @@
           datasets: [{
             label: "Skóre",
             data: [6.0, 3.3, 3.9, 4.7],
-            backgroundColor: "#9ca3af",
+            backgroundColor: "#facc15",
             borderRadius: 10
           }]
         },

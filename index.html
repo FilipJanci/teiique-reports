@@ -62,6 +62,7 @@
       border-radius: 0.5rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      width: 100%;
     }
 
     button:hover {
@@ -71,6 +72,7 @@
     .error-message {
       color: red;
       font-size: 0.9rem;
+      min-height: 1.2rem;
     }
 
     .emoji-strip {
@@ -129,15 +131,15 @@
     <div class="container">
       <input type="text" id="animalInput" placeholder="napr. vlk" />
       <button onclick="openPDF()">Zobraziť PDF</button>
-      <div id="errorMessage" class="error-message"></div>
+      <div id="errorMessage" class="error-message">&nbsp;</div>
     </div>
   </div>
 
   <div class="emoji-strip">
     <div class="fade-left"></div>
     <div class="emoji-track">
-      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
-      <span>🦁</span><span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+      <span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
+      <span>🐺</span><span>🐻</span><span>🦊</span><span>🦉</span><span>🐯</span><span>🦓</span><span>🐸</span><span>🦄</span><span>🐵</span><span>🐶</span><span>🐱</span><span>🐰</span><span>🐼</span><span>🦉</span><span>🐷</span><span>🐮</span><span>🐴</span>
     </div>
     <div class="fade-right"></div>
   </div>
@@ -146,6 +148,7 @@
     function openPDF() {
       const animal = document.getElementById("animalInput").value.trim().toLowerCase();
       const errorMessage = document.getElementById("errorMessage");
+      errorMessage.innerHTML = "&nbsp;";
       if (!animal) {
         errorMessage.textContent = "Prosím, zadaj zviera.";
         return;

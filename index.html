@@ -158,8 +158,25 @@
       if (!animal) {
         errorMessage.textContent = "Ešte si nič nezadal.";
         return;
-      }
+        }
 
+      // Normalizácia vstupu a odstránenie diakritiky
+      const normalizedAnimal = animal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+      const filePath = `pdfs/${normalizedAnimal}.pdf`;
+      fetch(filePath)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Zviera sa nenašlo.");
+        }
+      window.open(filePath, "_blank");
+    })
+    .catch((error) => {
+      errorMessage.textContent = "Toto zviera si akurát chilluje v Karibiku. Skús nejaké iné.";
+    });
+}
+
+      
       const filePath = `pdfs/${animal}.pdf`;
       fetch(filePath)
         .then((response) => {

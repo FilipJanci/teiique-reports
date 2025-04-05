@@ -136,7 +136,7 @@
     <p>Tak, ako si ho napísal v dotazníku (napr. "líška").</p>
     <div class="container">
       <input type="text" id="animalInput" />
-      <button onclick="openPDF()">Zobraziť výsledky</button>
+      <button onclick="openPage()">Zobraziť výsledky</button>
       <div id="errorMessage" class="error-message">&nbsp;</div>
     </div>
   </div>
@@ -151,7 +151,7 @@
   </div>
 
   <script>
-    function openPDF() {
+    function openPage() {
       const animal = document.getElementById("animalInput").value.trim().toLowerCase();
       const errorMessage = document.getElementById("errorMessage");
       errorMessage.innerHTML = "&nbsp;";
@@ -163,23 +163,22 @@
       // Normalizácia vstupu a odstránenie diakritiky
       const normalizedAnimal = animal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-      const filePath = `pdfs/${normalizedAnimal}.pdf`;
-      fetch(filePath)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Zviera sa nenašlo.");
-          }
-          window.open(filePath, "_blank");
-        })
-        .catch((error) => {
-          errorMessage.textContent = "Toto zviera si akurát chilluje v Karibiku. Skús nejaké iné.";
-        });
+      const validAnimals = [
+        "vlk", "medveď", "líška", "sova", "tigri", "zebra", "žaba", "jednorožec", "opica", "pes", "mačka", "zajac", "panda", "prasa", "krava", "kôň"
+      ];
+
+      // Skontrolujeme, či zviera existuje v zozname platných zvierat
+      if (validAnimals.includes(normalizedAnimal)) {
+        window.location.href = `${normalizedAnimal}.html`; // Prelinkujeme na konkrétnu stránku zvieraťa
+      } else {
+        errorMessage.textContent = "Toto zviera si akurát chilluje v Karibiku. Skús nejaké iné.";
+      }
     }
 
     // Pridanie poslucháča na Enter klávesu
     document.getElementById("animalInput").addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
-        openPDF();
+        openPage();
       }
     });
   </script>

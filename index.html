@@ -146,13 +146,16 @@
 
   <script>
     function openPDF() {
-      const animal = document.getElementById("animalInput").value.trim().toLowerCase();
+      let animal = document.getElementById("animalInput").value.trim().toLowerCase();
       const errorMessage = document.getElementById("errorMessage");
       errorMessage.innerHTML = "&nbsp;";
       if (!animal) {
         errorMessage.textContent = "Prosím, zadaj zviera.";
         return;
       }
+
+      // Normalize and remove diacritics
+      animal = animal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       const filePath = `pdfs/${animal}.pdf`;
       fetch(filePath)

@@ -1,0 +1,75 @@
+<!-- TEIQue-SF PDF portal - complete HTML/JS site -->
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEIQue Vyhodnotenie</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      padding: 0.6rem;
+      font-size: 1rem;
+      width: 200px;
+    }
+    button {
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Zadaj svoje zviera 🐾</h2>
+    <p style="margin-bottom: 1rem; color: #555">Zadávaj presne, ako si ho napísal v dotazníku (napr. "sova", "líška").</p>
+    <input type="text" id="animalInput" placeholder="napr. vlk" />
+    <button onclick="findPDF()">Zobraziť PDF</button>
+    <div class="error" id="error"></div>
+  </div>
+
+  <script>
+    function findPDF() {
+      const input = document.getElementById("animalInput").value.trim().toLowerCase();
+      const errorBox = document.getElementById("error");
+      errorBox.textContent = "";
+
+      if (!input) {
+        errorBox.textContent = "Prosím zadaj zviera.";
+        return;
+      }
+
+      const pdfPath = `pdfs/${input}.pdf`;
+
+      fetch(pdfPath)
+        .then(res => {
+          if (!res.ok) throw new Error("Nenašli sme PDF.");
+          window.open(pdfPath, "_blank");
+        })
+        .catch(() => {
+          errorBox.textContent = `PDF pre zviera "${input}" sa nenašlo. Skontroluj pravopis.`;
+        });
+    }
+  </script>
+</body>
+</html>

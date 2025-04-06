@@ -1,41 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Výsledky EQ dotazníkov</title>
   <style>
+    :root {
+      --main-bg: #f8fafc;
+      --box-bg: #ffffff;
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --error: red;
+    }
+
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f8fafc;
+      background-color: var(--main-bg);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       flex-direction: column;
     }
 
     .main-box {
-      background: white;
-      padding: 2.5rem;
+      background: var(--box-bg);
+      padding: 2rem;
       border-radius: 1rem;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       text-align: center;
+      width: 90%;
       max-width: 500px;
-      width: 100%;
     }
 
     h1 {
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
       font-weight: 700;
+      color: var(--text-main);
     }
 
     p {
       font-size: 1rem;
-      color: #4b5563;
+      color: var(--text-muted);
       margin-bottom: 1.5rem;
     }
 
@@ -50,8 +61,6 @@
       font-size: 1.1rem;
       border-radius: 0.5rem;
       border: 1px solid #d1d5db;
-      margin: 0 auto;
-      display: block;
       text-align: center;
       width: 100%;
       box-sizing: border-box;
@@ -59,24 +68,24 @@
 
     button {
       padding: 0.75rem;
-      background-color: #10b981;
+      background-color: var(--accent);
       color: white;
       font-weight: bold;
       border: none;
       border-radius: 0.5rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
-      width: 100%;
       font-size: 1.1rem;
+      width: 100%;
       box-sizing: border-box;
     }
 
     button:hover {
-      background-color: #059669;
+      background-color: var(--accent-hover);
     }
 
     .error-message {
-      color: red;
+      color: var(--error);
       font-size: 0.9rem;
       min-height: 1.2rem;
     }
@@ -112,12 +121,12 @@
 
     .fade-left {
       left: 0;
-      background: linear-gradient(to right, #f8fafc 0%, transparent 100%);
+      background: linear-gradient(to right, var(--main-bg) 0%, transparent 100%);
     }
 
     .fade-right {
       right: 0;
-      background: linear-gradient(to left, #f8fafc 0%, transparent 100%);
+      background: linear-gradient(to left, var(--main-bg) 0%, transparent 100%);
     }
 
     @keyframes scroll {
@@ -126,6 +135,23 @@
       }
       to {
         transform: translateX(-50%);
+      }
+    }
+
+    @media (max-height: 500px) {
+      body {
+        align-items: flex-start;
+        padding-top: 2rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+      input, button {
+        font-size: 1rem;
+        padding: 0.6rem;
       }
     }
   </style>
@@ -160,23 +186,18 @@
         return;
       }
 
-      // Normalizácia vstupu a odstránenie diakritiky
       const normalizedAnimal = animal.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-      const validAnimals = [
-          "líška", "nosorožec", "lev", "chobotnica", "klokan"
-        ].map(a => a.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+      const validAnimals = ["líška", "nosorožec", "lev", "chobotnica", "klokan"]
+        .map(a => a.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 
-
-      // Skontrolujeme, či zviera existuje v zozname platných zvierat
       if (validAnimals.includes(normalizedAnimal)) {
-        window.location.href = `${normalizedAnimal}.html`; // Prelinkujeme na konkrétnu stránku zvieraťa
+        window.location.href = `${normalizedAnimal}.html`;
       } else {
         errorMessage.textContent = "Toto zviera si akurát chilluje v Karibiku. Skús nejaké iné.";
       }
     }
 
-    // Pridanie poslucháča na Enter klávesu
     document.getElementById("animalInput").addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         openPage();

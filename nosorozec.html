@@ -26,36 +26,30 @@
         color: #374151;
       }
 
-      .score {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem 2rem;
-  margin-bottom: 2rem;
-  font-size: 1.05rem;
-  overflow: hidden;
-  word-wrap: break-word; /* Umožní zlom textu, ak je príliš dlhý */
-}
-
-.score-item {
-  background-color: #ffffff;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  min-width: 0; /* Zaručí, že sa obsah neodstrihne */
-  overflow: hidden; /* Zamedzí vyskakovaniu obsahu mimo boxu */
-  flex-wrap: wrap; /* Umožní, aby sa hodnoty správne prispôsobili */
-}
-
-
+     .score {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem 2rem;
+        margin-bottom: 2rem;
+        font-size: 1.05rem;
+      }
+      
+      .score-item {
+        background-color: #ffffff;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+      
       .score-label {
         font-weight: 500;
         color: #6b7280;
       }
-
+      
       .score-value {
         font-weight: bold;
         padding: 0.25rem 0.6rem;
@@ -81,7 +75,7 @@
         color: #92400e;
       }
 
-      /* Globálne EQ */
+      /* Nastavenia pre Globálne EQ */
       .score-global {
         background-color: #ffffff;
         color: #374151;
@@ -94,8 +88,7 @@
       .score-global .score-value {
   background-color: #364052;
   color: #ffffff;
-  padding: 0.5rem 1rem; /* Zmierni padding pre mobilné zariadenia */
-}
+  }
 
       .result-text {
         margin-top: 2rem;
@@ -118,18 +111,20 @@
       
       
 @media (max-width: 768px) {
+  /* Na mobilných zariadeniach zmeníme layout na jeden stĺpec */
   .score {
-    grid-template-columns: 1fr;
-    padding: 0 1rem; /* Zabezpečí padding pre mobil */
+    grid-template-columns: 1fr; /* Jeden stĺpec */
+    padding: 0 1rem; /* Zabezpečíme padding pre mobil */
   }
 
   .score-item {
     font-size: 1rem;
-    padding: 1rem; /* Trochu viac priestoru pre mobil */
+    padding: 1rem; /* Zväčšíme padding na mobil */
   }
 
   .score-global {
     padding: 1rem; /* Prispôsobíme aj pre mobil */
+    grid-column: auto; /* Zabezpečíme, aby sa nezobrazovalo na šírku */
   }
 }
 

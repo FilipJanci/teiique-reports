@@ -61,11 +61,27 @@
 
       .score-value {
         font-weight: bold;
-        background-color: #e5e7eb;
-        color: #374151;
         padding: 0.25rem 0.6rem;
         border-radius: 0.4rem;
         font-variant-numeric: tabular-nums;
+      }
+      
+      /* neutrál */
+      .score-default {
+        background-color: #e5e7eb;
+        color: #374151;
+      }
+      
+      /* vysoké skóre – zelená */
+      .score-high {
+        background-color: #bbf7d0;
+        color: #166534;
+      }
+      
+      /* nízke skóre – oranžovo-žltá */
+      .score-low {
+        background-color: #fde68a;
+        color: #92400e;
       }
 
       .result-text {
@@ -102,28 +118,30 @@
   <body>
     <h1>🦏 NOSOROŽEC</h1>
 
-    <div class="score">
-  <div class="score-item highlight-border">
-    <span class="score-label">Globálne EQ</span>
-    <span class="score-value">4.3</span>
-  </div>
-  <div class="score-item">
-    <span class="score-label">Well-being</span>
-    <span class="score-value highlight-score">6.0</span>
-  </div>
-  <div class="score-item">
-    <span class="score-label">Sebakontrola</span>
-    <span class="score-value">3.3</span>
-  </div>
-  <div class="score-item">
-    <span class="score-label">Emocionalita</span>
-    <span class="score-value">3.9</span>
-  </div>
-  <div class="score-item">
-    <span class="score-label">Sociabilita</span>
-    <span class="score-value">4.7</span>
-  </div>
-</div>
+    <div class="score-item highlight-border">
+      <span class="score-label">Globálne EQ</span>
+      <span class="score-value score-default">4.3</span>
+    </div>
+    
+    <div class="score-item">
+      <span class="score-label">Well-being</span>
+      <span class="score-value score-high">6.0</span>
+    </div>
+    
+    <div class="score-item">
+      <span class="score-label">Sebakontrola</span>
+      <span class="score-value score-low">3.3</span> <!-- hranica, môžeš dať default ak chceš -->
+    </div>
+    
+    <div class="score-item">
+      <span class="score-label">Emocionalita</span>
+      <span class="score-value score-default">3.9</span>
+    </div>
+    
+    <div class="score-item">
+      <span class="score-label">Sociabilita</span>
+      <span class="score-value score-default">4.7</span>
+    </div>
 
     <canvas id="eqChart" width="400" height="300"></canvas>
 
@@ -137,21 +155,36 @@
     <script>
   Chart.register(window['chartjs-plugin-annotation']);
 
+  // Načítanie všetkých labelov a hodnôt
+  const scoreItems = document.querySelectorAll('.score-item');
+  const labels = [];
+  const data = [];
+  const backgroundColors = [];
+
+  scoreItems.forEach((item, index) => {
+    const label = item.querySelector('.score-label').textContent.trim();
+    const value = parseFloat(item.querySelector('.score-value').textContent);
+    
+    labels.push(label);
+    data.push(value);
+
+    // Ak má item highlight-border, tak daj výraznú farbu
+    if (item.classList.contains('highlight-border')) {
+      backgroundColors.push('#2d2d2d'); // čierna
+    } else {
+      backgroundColors.push('#9ca3af'); // šedá
+    }
+  });
+
   const ctx = document.getElementById("eqChart").getContext("2d");
   new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ["Globálne EQ", "Well-being", "Sebakontrola", "Emocionalita", "Sociabilita"],
+      labels: labels,
       datasets: [{
         label: "Skóre",
-        data: [4.3, 6.0, 3.3, 3.9, 4.7],
-        backgroundColor: [
-          "#2d2d2d", // takmer čierna pre hlavný graf
-          "#9ca3af", // šedá pre ostatné
-          "#9ca3af",
-          "#9ca3af",
-          "#9ca3af"
-        ],
+        data: data,
+        backgroundColor: backgroundColors,
         borderRadius: 10,
         categoryPercentage: 0.5,
         barPercentage: 0.92
@@ -221,6 +254,7 @@
     }
   });
 </script>
+
 
   </body>
 </html>

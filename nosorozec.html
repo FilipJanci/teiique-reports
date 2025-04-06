@@ -26,7 +26,13 @@
         color: #374151;
       }
 
-     .score {
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #374151;
+      }
+
+      .score {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem 2rem;
@@ -86,10 +92,9 @@
         grid-column: span 2;
       }
       .score-global .score-value {
-  background-color: #364052;
-  color: #ffffff;
-  padding: 0.5rem 1rem; /* Zmierni padding pre mobilné zariadenia */
-  }
+        background-color: #364052;
+        color: #ffffff;
+      }
 
       .result-text {
         margin-top: 2rem;
@@ -108,8 +113,6 @@
         height: auto;
         margin: 2rem 0;
       }
-      
-      
       
 @media (max-width: 768px) {
   /* Na mobilných zariadeniach zmeníme layout na jeden stĺpec */
@@ -163,6 +166,7 @@
 
     <canvas id="eqChart" width="400" height="300"></canvas>
 
+    <h2>Zhrnutie</h2>
     <div class="result-text">
       <p>
         Celkové EQ máš úplne v pohode priemere. To, čo u teba vyniká, je tvoj well-being. Skóre 6 je parádne a znamená, že si spokojná a vyrovnaná osoba, ktorá vie, čo ju robí šťastnou. Takéto skóre je na tvoj vek až trochu nezvyčajné. Ukazuje, že máš pevné vnútorné nastavenie a dobrý vzťah k sebe samej. Sociálne zručnosti máš tiež pomerne silné. Zdá sa, že vieš byť medzi ľuďmi, vytvárať príjemnú atmosféru a druhí sa pri tebe cítia dobre. Možno občas zjemníš napätie v skupine alebo do nej prinesieš pozitívnu náladu, čo je vzácne. 

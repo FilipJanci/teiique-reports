@@ -5,42 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>EQ Výsledok – Klokan</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
     <style>
       body {
-        font-family: sans-serif;
-        max-width: 600px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 700px;
         margin: 2rem auto;
-        background-color: #fff8e1;
-        border: 2px solid #fbbf24;
+        background-color: #fff7e1;
+        border: 2px solid #e8a317;
         border-radius: 1rem;
-        padding: 2rem;
+        padding: 2rem 2.5rem;
+        color: #3c3c3c;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
       }
+
       h1 {
-        font-size: 1.8rem;
-        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #e67e22;
       }
-      p {
-        margin-bottom: 1rem;
-        line-height: 1.5;
+
+      .score {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        font-size: 1.05rem;
       }
+
+      .score-item {
+        background-color: #fef5c9;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #f7d07a;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .score-label {
+        font-weight: 500;
+        color: #4b5563;
+      }
+
+      .score-value {
+        font-weight: bold;
+        background-color: #f1a73e;
+        color: #fff;
+        padding: 0.25rem 0.6rem;
+        border-radius: 0.4rem;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .result-text {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background-color: #fefce8;
+        border: 1px solid #f7d07a;
+        border-radius: 0.75rem;
+        font-size: 1.02rem;
+        line-height: 1.65;
+        text-align: justify;
+        color: #333;
+      }
+
       canvas {
-        margin: 1rem 0;
+        margin: 2rem 0;
       }
     </style>
   </head>
   <body>
     <h1>🦘 KLOKAN</h1>
-    <p><strong>Globálne EQ:</strong> 5.3</p>
+
+    <div class="score">
+      <div class="score-item"><span class="score-label">Globálne EQ</span> <span class="score-value">5.3</span></div>
+      <div class="score-item"><span class="score-label">Well-being</span> <span class="score-value">6.2</span></div>
+      <div class="score-item"><span class="score-label">Sebakontrola</span> <span class="score-value">4.3</span></div>
+      <div class="score-item"><span class="score-label">Emocionalita</span> <span class="score-value">5.8</span></div>
+      <div class="score-item"><span class="score-label">Sociabilita</span> <span class="score-value">5.0</span></div>
+    </div>
 
     <canvas id="eqChart" width="400" height="300"></canvas>
 
-    <p>
-      Wow, vzhľadom na svoj vek máš fakt super výsledky! Si plný energie,
-      v pohode komunikuješ a zároveň vnímaš, čo sa deje vo vnútri. Taký mladý
-      líder, ktorý dokáže skočiť, keď treba.
-    </p>
+    <div class="result-text">
+      <p>
+        Wow, vzhľadom na svoj vek máš fakt super výsledky! Vieš veľmi dobre pracovať aj s vlastnými emóciami, aj s emóciami druhých, a máš veľmi zdravý pohľad na seba i na svet okolo. V podstate takmer všetky oblasti tvojho EQ sú v nadpriemere. Vysoké skóre tvojho well-beingu a emocionality poukazuje na veľmi zdravý emočný život – zdá sa, že si vyrovnaná, empatická a vnútorne stabilná osoba. Máš super schopnosť porozumieť emóciám a regulovať ich, čo z teba robí prirodzeného nositeľa pozitívneho vplyvu v skupine. Sociabilita ti ide rovnako dobre: vieš fungovať v skupine, pôsobiť prirodzene, nenútene a vytvárať okolo seba pozitívnu atmosféru. To znamená, že máš dobrý potenciál pre líderské role, prípadne byť super podporovateľ (napr. niečo ako „buddy“ pre druhých), alebo proste len dobrý, supportive kamarát. Ak ešte chceš niečo vylepšiť (ale fakt netreba 🙂), môžeš skúsiť trénovať rôzne reakcie v náročnejších situáciách, keď si pod stresom. Na základe tvojho EQ profilu pôsobíš ako človek, ktorý má zdravé sebavedomie, empatiu a schopnosť byť oporou pre druhých. Takéto EQ mávajú často až dospelí ľudia po rokoch práce na sebe. Rešpekt 🙌
+      </p>
+    </div>
 
     <script>
+      Chart.register(window['chartjs-plugin-annotation']);
+
       const ctx = document.getElementById("eqChart").getContext("2d");
       new Chart(ctx, {
         type: "bar",
@@ -49,15 +105,70 @@
           datasets: [{
             label: "Skóre",
             data: [6.2, 4.3, 5.8, 5.0],
-            backgroundColor: "#f59e0b",
-            borderRadius: 10
+            backgroundColor: "#f1a73e",
+            borderRadius: 10,
+            categoryPercentage: 0.5,
+            barPercentage: 0.92
           }]
         },
         options: {
           scales: {
             y: {
               beginAtZero: true,
-              max: 7
+              max: 7,
+              ticks: {
+                stepSize: 1
+              },
+              grid: {
+                drawTicks: false,
+                color: '#e5e7eb'
+              }
+            }
+          },
+          plugins: {
+            annotation: {
+              annotations: {
+                veryLow: {
+                  type: 'box',
+                  yMin: 0,
+                  yMax: 2.3,
+                  backgroundColor: 'rgba(242, 85, 96, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                low: {
+                  type: 'box',
+                  yMin: 2.4,
+                  yMax: 3.2,
+                  backgroundColor: 'rgba(251, 191, 36, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                average: {
+                  type: 'box',
+                  yMin: 3.3,
+                  yMax: 4.7,
+                  backgroundColor: 'rgba(234, 179, 8, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                high: {
+                  type: 'box',
+                  yMin: 4.8,
+                  yMax: 5.6,
+                  backgroundColor: 'rgba(132, 204, 22, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                veryHigh: {
+                  type: 'box',
+                  yMin: 5.7,
+                  yMax: 7,
+                  backgroundColor: 'rgba(34, 197, 94, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                }
+              }
             }
           }
         }

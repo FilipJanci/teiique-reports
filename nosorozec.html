@@ -42,7 +42,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 1rem; /* Väčší rozostup medzi jednotlivými položkami */
+        margin-bottom: 1rem;
       }
 
       .score-label {
@@ -83,7 +83,11 @@
         padding: 0.75rem 1rem;
         border-radius: 0.5rem;
         border: 2px solid #000;
-        grid-column: span 2; /* Zaberá obe kolónky */
+        grid-column: span 2;
+      }
+      .score-global .score-value {
+        background-color: #364052;
+        color: #ffffff;
       }
 
       .result-text {
@@ -113,6 +117,10 @@
         }
         .score-item {
           font-size: 1rem;
+        }
+        .result-text {
+          font-size: 1rem;
+          padding: 1rem;
         }
       }
     </style>

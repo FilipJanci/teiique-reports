@@ -110,85 +110,92 @@
     </div>
 
     <script>
-      Chart.register(window['chartjs-plugin-annotation']);
+  Chart.register(window['chartjs-plugin-annotation']);
 
-      const ctx = document.getElementById("eqChart").getContext("2d");
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["Well-being", "Sebakontrola", "Emocionalita", "Sociabilita"],
-          datasets: [{
-            label: "Skóre",
-            data: [6.0, 3.3, 3.9, 4.7],
-            backgroundColor: "#9ca3af",
-            borderRadius: 10,
-            categoryPercentage: 0.5,
-            barPercentage: 0.92
-          }]
-        },
-        options: {
-  scales: {
-    y: {
-      beginAtZero: false,  // Disable beginning at zero
-      min: 1,  // Set minimum value to 1
-      max: 7,
-      ticks: {
-        stepSize: 1
+  const ctx = document.getElementById("eqChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Globálne EQ", "Well-being", "Sebakontrola", "Emocionalita", "Sociabilita"],
+      datasets: [{
+        label: "Skóre",
+        data: [4.3, 6.0, 3.3, 3.9, 4.7],
+        backgroundColor: [
+          "#3b82f6", // výrazná modrá pre Globálne EQ
+          "#9ca3af", // šedá pre ostatné
+          "#9ca3af",
+          "#9ca3af",
+          "#9ca3af"
+        ],
+        borderRadius: 10,
+        categoryPercentage: 0.5,
+        barPercentage: 0.92
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: false,
+          min: 1,
+          max: 7,
+          ticks: {
+            stepSize: 1
+          },
+          grid: {
+            drawTicks: false,
+            color: '#e5e7eb'
+          }
+        }
       },
-      grid: {
-        drawTicks: false,
-        color: '#e5e7eb'
-      }
-    }
-  },
-  plugins: {
-    annotation: {
-      annotations: {
-        veryLow: {
-          type: 'box',
-          yMin: 0,
-          yMax: 2.3,
-          backgroundColor: 'rgba(242, 85, 96, 0.1)',
-          borderWidth: 0,
-          drawTime: 'beforeDatasetsDraw'
-        },
-        low: {
-          type: 'box',
-          yMin: 2.4,
-          yMax: 3.2,
-          backgroundColor: 'rgba(251, 191, 36, 0.1)',
-          borderWidth: 0,
-          drawTime: 'beforeDatasetsDraw'
-        },
-        average: {
-          type: 'box',
-          yMin: 3.3,
-          yMax: 4.7,
-          backgroundColor: 'rgba(234, 179, 8, 0.1)',
-          borderWidth: 0,
-          drawTime: 'beforeDatasetsDraw'
-        },
-        high: {
-          type: 'box',
-          yMin: 4.8,
-          yMax: 5.6,
-          backgroundColor: 'rgba(132, 204, 22, 0.1)',
-          borderWidth: 0,
-          drawTime: 'beforeDatasetsDraw'
-        },
-        veryHigh: {
-          type: 'box',
-          yMin: 5.7,
-          yMax: 7,
-          backgroundColor: 'rgba(34, 197, 94, 0.1)',
-          borderWidth: 0,
-          drawTime: 'beforeDatasetsDraw'
+      plugins: {
+        annotation: {
+          annotations: {
+            veryLow: {
+              type: 'box',
+              yMin: 0,
+              yMax: 2.3,
+              backgroundColor: 'rgba(242, 85, 96, 0.1)',
+              borderWidth: 0,
+              drawTime: 'beforeDatasetsDraw'
+            },
+            low: {
+              type: 'box',
+              yMin: 2.4,
+              yMax: 3.2,
+              backgroundColor: 'rgba(251, 191, 36, 0.1)',
+              borderWidth: 0,
+              drawTime: 'beforeDatasetsDraw'
+            },
+            average: {
+              type: 'box',
+              yMin: 3.3,
+              yMax: 4.7,
+              backgroundColor: 'rgba(234, 179, 8, 0.1)',
+              borderWidth: 0,
+              drawTime: 'beforeDatasetsDraw'
+            },
+            high: {
+              type: 'box',
+              yMin: 4.8,
+              yMax: 5.6,
+              backgroundColor: 'rgba(132, 204, 22, 0.1)',
+              borderWidth: 0,
+              drawTime: 'beforeDatasetsDraw'
+            },
+            veryHigh: {
+              type: 'box',
+              yMin: 5.7,
+              yMax: 7,
+              backgroundColor: 'rgba(34, 197, 94, 0.1)',
+              borderWidth: 0,
+              drawTime: 'beforeDatasetsDraw'
+            }
+          }
         }
       }
     }
-  }
-}
-      });
-    </script>
+  });
+</script>
+
   </body>
 </html>

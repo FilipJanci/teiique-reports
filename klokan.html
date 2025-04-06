@@ -103,12 +103,17 @@
         data: {
           labels: ["Well-being", "Sebakontrola", "Emocionalita", "Sociabilita"],
           datasets: [{
+           
             label: "Skóre",
             data: [6.2, 4.3, 5.8, 5.0],
             backgroundColor: "#f1a73e",
             borderRadius: 10,
             categoryPercentage: 0.5,
-            barPercentage: 0.92
+            barPercentage: 0.92,
+            barThickness: 40,  // Pridaj toto pre väčšie stĺpce
+            borderWidth: 4,    // Toto zvýši hrúbku okraja stĺpca
+          }]
+
           }]
         },
         options: {

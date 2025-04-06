@@ -61,7 +61,7 @@
       }
 
       const normalizedAnimal = animal.normalize("NFD").replace(/[̀-ͯ]/g, "");
-      const validAnimals = ["líška", "nosorožec", "lev", "chobotnica", "klokan"]
+      const validAnimals = ["nosorožec", "lev", "chobotnica", "klokan"]
         .map(a => a.normalize("NFD").replace(/[̀-ͯ]/g, ""));
 
       if (validAnimals.includes(normalizedAnimal)) {

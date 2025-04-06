@@ -19,6 +19,10 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
       }
 
+      .highlight-border {
+        border: 2px solid #2d2d2d; /* Výrazná čierna pre horný box */
+      }
+      
       h1 {
         font-size: 2rem;
         margin-bottom: 1.5rem;
@@ -26,16 +30,6 @@
         color: #374151;
       }
 
-      .highlight-border {
-        border: 2px solid #2d2d2d; /* výrazná čierna */
-      }
-      
-      .highlight-score {
-        background-color: #bbf7d0; /* jemná zelená (tailwind green-200) */
-        color: #166534; /* tmavšia zelená pre kontrast */
-      }
-
-      
       .score {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -55,7 +49,6 @@
         margin-bottom: 1.5rem; /* Väčší rozostup medzi jednotlivými položkami */
       }
 
-
       .score-label {
         font-weight: 500;
         color: #6b7280;
@@ -68,24 +61,6 @@
         font-variant-numeric: tabular-nums;
       }
       
-      /* neutrál */
-      .score-default {
-        background-color: #e5e7eb;
-        color: #374151;
-      }
-      
-      /* vysoké skóre – zelená */
-      .score-high {
-        background-color: #bbf7d0;
-        color: #166534;
-      }
-      
-      /* nízke skóre – oranžovo-žltá */
-      .score-low {
-        background-color: #fde68a;
-        color: #92400e;
-      }
-
       .result-text {
         margin-top: 2rem;
         padding: 1.5rem;
@@ -122,141 +97,147 @@
 
     <div class="score-item highlight-border">
       <span class="score-label">Globálne EQ</span>
-      <span class="score-value score-default">4.3</span>
+      <span class="score-value">4.3</span>
     </div>
-    
+
     <div class="score-item">
       <span class="score-label">Well-being</span>
-      <span class="score-value score-high">6.0</span>
+      <span class="score-value">6.0</span>
     </div>
-    
+
     <div class="score-item">
       <span class="score-label">Sebakontrola</span>
-      <span class="score-value score-low">3.3</span> <!-- hranica, môžeš dať default ak chceš -->
+      <span class="score-value">3.3</span>
     </div>
-    
+
     <div class="score-item">
       <span class="score-label">Emocionalita</span>
-      <span class="score-value score-default">3.9</span>
+      <span class="score-value">3.9</span>
     </div>
-    
+
     <div class="score-item">
       <span class="score-label">Sociabilita</span>
-      <span class="score-value score-default">4.7</span>
+      <span class="score-value">4.7</span>
     </div>
 
     <canvas id="eqChart" width="400" height="300"></canvas>
 
     <div class="result-text">
       <p>
-        Celkové EQ máš úplne v pohode priemere. To, čo u teba vyniká, je tvoj well-being. Skóre 6 je parádne a znamená, že si spokojná a vyrovnaná osoba, ktorá vie, čo ju robí šťastnou. Takéto skóre je na tvoj vek až trochu nezvyčajné. Ukazuje, že máš pevné vnútorné nastavenie a dobrý vzťah k sebe samej. Sociálne zručnosti máš tiež pomerne silné. Zdá sa, že vieš byť medzi ľuďmi, vytvárať príjemnú atmosféru a druhí sa pri tebe cítia dobre. Možno občas zjemníš napätie v skupine alebo do nej prinesieš pozitívnu náladu, čo je vzácne. 
-        Sebakontrolu máš naopak nižšiu, tá sa pohybuje niekde na spodnej hranici priemeru. Nižšia sebakontrola je v tomto veku pomerne bežná, či už sa týka impulzívnych rozhodnutí, stresu, alebo zvládania náročných emócií. Dobrá správa je, že to o sebe vieš, a môžeš ju skúšať jemne trénovať, napr. tým, že si dáš vedome vždy pár sekúnd pauzu pretým, ako budeš reagovať na niečo, čo ťa vyrušilo. Ale určite sa netreba bičovať :) tvoj profil ukazuje veľmi zdravé a pohodové emočné nastavenie!
+        Celkové EQ máš úplne v pohode priemere. To, čo u teba vyniká, je tvoj well-being. Skóre 6 je parádne a znamená, že si spokojná a vyrovnaná osoba...
       </p>
     </div>
 
     <script>
-  Chart.register(window['chartjs-plugin-annotation']);
+      Chart.register(window['chartjs-plugin-annotation']);
 
-  // Načítanie všetkých labelov a hodnôt
-  const scoreItems = document.querySelectorAll('.score-item');
-  const labels = [];
-  const data = [];
-  const backgroundColors = [];
+      // Načítanie všetkých labelov a hodnôt
+      const scoreItems = document.querySelectorAll('.score-item');
+      const labels = [];
+      const data = [];
+      const backgroundColors = [];
 
-  scoreItems.forEach((item, index) => {
-    const label = item.querySelector('.score-label').textContent.trim();
-    const value = parseFloat(item.querySelector('.score-value').textContent);
-    
-    labels.push(label);
-    data.push(value);
+      scoreItems.forEach((item, index) => {
+        const label = item.querySelector('.score-label').textContent.trim();
+        const value = parseFloat(item.querySelector('.score-value').textContent);
+        
+        labels.push(label);
+        data.push(value);
 
-    // Ak má item highlight-border, tak daj výraznú farbu
-    if (item.classList.contains('highlight-border')) {
-      backgroundColors.push('#2d2d2d'); // čierna
-    } else {
-      backgroundColors.push('#9ca3af'); // šedá
-    }
-  });
-
-  const ctx = document.getElementById("eqChart").getContext("2d");
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: labels,
-      datasets: [{
-        label: "Skóre",
-        data: data,
-        backgroundColor: backgroundColors,
-        borderRadius: 10,
-        categoryPercentage: 0.5,
-        barPercentage: 0.92
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: false,
-          min: 1,
-          max: 7,
-          ticks: {
-            stepSize: 1
-          },
-          grid: {
-            drawTicks: false,
-            color: '#e5e7eb'
-          }
+        // Dynamické pridanie farieb podľa skóre
+        let color = '#e5e7eb'; // Default
+        if (value >= 5.7) {
+          color = '#22c55e'; // veryHigh - zelená
+        } else if (value >= 4.8) {
+          color = '#84cc16'; // high - svetlá zelená
+        } else if (value >= 3.3) {
+          color = '#eab308'; // average - žltá
+        } else if (value >= 2.4) {
+          color = '#fbbf24'; // low - oranžová
+        } else {
+          color = '#f26560'; // veryLow - červená
         }
-      },
-      plugins: {
-        annotation: {
-          annotations: {
-            veryLow: {
-              type: 'box',
-              yMin: 0,
-              yMax: 2.3,
-              backgroundColor: 'rgba(242, 85, 96, 0.1)',
-              borderWidth: 0,
-              drawTime: 'beforeDatasetsDraw'
-            },
-            low: {
-              type: 'box',
-              yMin: 2.4,
-              yMax: 3.2,
-              backgroundColor: 'rgba(251, 191, 36, 0.1)',
-              borderWidth: 0,
-              drawTime: 'beforeDatasetsDraw'
-            },
-            average: {
-              type: 'box',
-              yMin: 3.3,
-              yMax: 4.7,
-              backgroundColor: 'rgba(234, 179, 8, 0.1)',
-              borderWidth: 0,
-              drawTime: 'beforeDatasetsDraw'
-            },
-            high: {
-              type: 'box',
-              yMin: 4.8,
-              yMax: 5.6,
-              backgroundColor: 'rgba(132, 204, 22, 0.1)',
-              borderWidth: 0,
-              drawTime: 'beforeDatasetsDraw'
-            },
-            veryHigh: {
-              type: 'box',
-              yMin: 5.7,
-              yMax: 7,
-              backgroundColor: 'rgba(34, 197, 94, 0.1)',
-              borderWidth: 0,
-              drawTime: 'beforeDatasetsDraw'
+
+        backgroundColors.push(color);
+      });
+
+      const ctx = document.getElementById("eqChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Skóre",
+            data: data,
+            backgroundColor: backgroundColors,
+            borderRadius: 10,
+            categoryPercentage: 0.5,
+            barPercentage: 0.92
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 1,
+              max: 7,
+              ticks: {
+                stepSize: 1
+              },
+              grid: {
+                drawTicks: false,
+                color: '#e5e7eb'
+              }
+            }
+          },
+          plugins: {
+            annotation: {
+              annotations: {
+                veryLow: {
+                  type: 'box',
+                  yMin: 0,
+                  yMax: 2.3,
+                  backgroundColor: 'rgba(242, 85, 96, 0.1)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                low: {
+                  type: 'box',
+                  yMin: 2.4,
+                  yMax: 3.2,
+                  backgroundColor: 'rgba(251, 191, 36, 0.1)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                average: {
+                  type: 'box',
+                  yMin: 3.3,
+                  yMax: 4.7,
+                  backgroundColor: 'rgba(234, 179, 8, 0.1)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                high: {
+                  type: 'box',
+                  yMin: 4.8,
+                  yMax: 5.6,
+                  backgroundColor: 'rgba(132, 204, 22, 0.1)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                veryHigh: {
+                  type: 'box',
+                  yMin: 5.7,
+                  yMax: 7,
+                  backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                }
+              }
             }
           }
         }
-      }
-    }
-  });
-</script>
-
-
+      });
+    </script>
   </body>
 </html>

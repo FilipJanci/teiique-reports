@@ -24,6 +24,7 @@
         margin-bottom: 1.5rem;
         text-align: center;
         color: #374151;
+        position: relative;
       }
 
       h2 {
@@ -63,25 +64,21 @@
         font-variant-numeric: tabular-nums;
       }
 
-      /* neutrál */
       .score-default {
         background-color: #e5e7eb;
         color: #374151;
       }
 
-      /* vysoké skóre – zelená */
       .score-high {
         background-color: #2aad76;
         color: #fcfcfc;
       }
 
-      /* nízke skóre – oranžovo-žltá */
       .score-low {
         background-color: #ffeeab;
         color: #92400e;
       }
 
-      /* Nastavenia pre Globálne EQ */
       .score-global {
         background-color: #ffffff;
         color: #374151;
@@ -91,6 +88,7 @@
         border: 2px solid #000;
         grid-column: span 2;
       }
+
       .score-global .score-value {
         background-color: #364052;
         color: #ffffff;
@@ -113,29 +111,94 @@
         height: auto;
         margin: 2rem 0;
       }
-      
-@media (max-width: 768px) {
-  /* Na mobilných zariadeniach zmeníme layout na jeden stĺpec */
-  .score {
-    grid-template-columns: 1fr; /* Jeden stĺpec */
-    padding: 0 1rem; /* Zabezpečíme padding pre mobil */
-  }
 
-  .score-item {
-    font-size: 1rem;
-    padding: 1rem; /* Zväčšíme padding na mobil */
-  }
+      .tooltip-container {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+      }
 
-  .score-global {
-    padding: 1rem; /* Prispôsobíme aj pre mobil */
-    grid-column: auto; /* Zabezpečíme, aby sa nezobrazovalo na šírku */
-  }
-}
+      .tooltip-icon {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        background-color: #9ca3af;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: bold;
+      }
 
+      .tooltip-text {
+        visibility: hidden;
+        opacity: 0;
+        width: 320px;
+        background-color: #ffffff;
+        color: #374151;
+        text-align: left;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        position: absolute;
+        z-index: 10;
+        top: 130%;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: opacity 0.3s;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      @media (max-width: 768px) {
+        .score {
+          grid-template-columns: 1fr;
+          padding: 0 1rem;
+        }
+
+        .score-item {
+          font-size: 1rem;
+          padding: 1rem;
+        }
+
+        .score-global {
+          padding: 1rem;
+          grid-column: auto;
+        }
+      }
     </style>
   </head>
   <body>
-    <h1>🦏 NOSOROŽEC</h1>
+    <h1>
+      🦏 NOSOROŽEC
+      <span class="tooltip-container">
+        <span class="tooltip-icon">?</span>
+        <span class="tooltip-text">
+          TEIQue-SF je dotazník, ktorý meria „trait emotional intelligence“, teda osobnostne zakorenenú schopnosť pracovať s emóciami – nie momentálnu náladu, ale dlhodobý emočný štýl človeka. Výsledky sa pohybujú na 7-bodovej škále, pričom treba mať na pamäti, že adolescenti často (nie vždy) skórujú nižšie ako dospelí ľudia v EQ. <br><br>
+          <strong>Škála:</strong><br>
+          &gt; 2.3 – vysoký podpriemer<br>
+          2.4 – 3.2 – podpriemer<br>
+          3.3 – 4.7 – priemer<br>
+          4.8 – 5.6 – nadpriemer<br>
+          5.7 &lt; – vysoký nadpriemer<br><br>
+          Dotazník meria celkové EQ a štyri oblasti:<br>
+          1. Well-being – spokojnosť, optimizmus, sebavedomie<br>
+          2. Sebakontrola – schopnosť zvládať stres, impulzy<br>
+          3. Emocionalita – porozumenie emóciám, empatia<br>
+          4. Sociabilita – komunikačné a sociálne zručnosti
+        </span>
+      </span>
+    </h1>
 
     <div class="score">
       <div class="score-item score-global">
@@ -177,24 +240,22 @@
     <script>
       Chart.register(window['chartjs-plugin-annotation']);
 
-      // Načítanie všetkých labelov a hodnôt
       const scoreItems = document.querySelectorAll('.score-item');
       const labels = [];
       const data = [];
       const backgroundColors = [];
 
-      scoreItems.forEach((item, index) => {
+      scoreItems.forEach((item) => {
         const label = item.querySelector('.score-label').textContent.trim();
         const value = parseFloat(item.querySelector('.score-value').textContent);
         
         labels.push(label);
         data.push(value);
 
-        // Ak má item highlight-border, tak daj výraznú farbu
         if (item.classList.contains('highlight-border')) {
-          backgroundColors.push('#2d2d2d'); // čierna
+          backgroundColors.push('#2d2d2d');
         } else {
-          backgroundColors.push('#9ca3af'); // šedá
+          backgroundColors.push('#9ca3af');
         }
       });
 

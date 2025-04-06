@@ -26,6 +26,16 @@
         color: #374151;
       }
 
+      .highlight-border {
+        border: 2px solid #2d2d2d; /* výrazná čierna */
+      }
+      
+      .highlight-score {
+        background-color: #bbf7d0; /* jemná zelená (tailwind green-200) */
+        color: #166534; /* tmavšia zelená pre kontrast */
+      }
+
+      
       .score {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -93,12 +103,27 @@
     <h1>🦏 NOSOROŽEC</h1>
 
     <div class="score">
-      <div class="score-item"><span class="score-label">Globálne EQ</span> <span class="score-value">4.3</span></div>
-      <div class="score-item"><span class="score-label">Well-being</span> <span class="score-value">6.0</span></div>
-      <div class="score-item"><span class="score-label">Sebakontrola</span> <span class="score-value">3.3</span></div>
-      <div class="score-item"><span class="score-label">Emocionalita</span> <span class="score-value">3.9</span></div>
-      <div class="score-item"><span class="score-label">Sociabilita</span> <span class="score-value">4.7</span></div>
-    </div>
+  <div class="score-item highlight-border">
+    <span class="score-label">Globálne EQ</span>
+    <span class="score-value">4.3</span>
+  </div>
+  <div class="score-item">
+    <span class="score-label">Well-being</span>
+    <span class="score-value highlight-score">6.0</span>
+  </div>
+  <div class="score-item">
+    <span class="score-label">Sebakontrola</span>
+    <span class="score-value">3.3</span>
+  </div>
+  <div class="score-item">
+    <span class="score-label">Emocionalita</span>
+    <span class="score-value">3.9</span>
+  </div>
+  <div class="score-item">
+    <span class="score-label">Sociabilita</span>
+    <span class="score-value">4.7</span>
+  </div>
+</div>
 
     <canvas id="eqChart" width="400" height="300"></canvas>
 
@@ -121,7 +146,7 @@
         label: "Skóre",
         data: [4.3, 6.0, 3.3, 3.9, 4.7],
         backgroundColor: [
-          "#2d2d2d", // tekmer čierna pre hlavný graf
+          "#2d2d2d", // takmer čierna pre hlavný graf
           "#9ca3af", // šedá pre ostatné
           "#9ca3af",
           "#9ca3af",

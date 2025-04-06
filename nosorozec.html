@@ -27,26 +27,29 @@
       }
 
       .score {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem 2rem;
-        margin-bottom: 2rem;
-        font-size: 1.05rem;
-        overflow: hidden;  /* Zabezpečí, že obsah sa nepreráža */
-        word-wrap: break-word; /* Umožní zlom textu, ak je príliš dlhý */
-      }    
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  overflow: hidden;
+  word-wrap: break-word; /* Umožní zlom textu, ak je príliš dlhý */
+}
 
+.score-item {
+  background-color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  min-width: 0; /* Zaručí, že sa obsah neodstrihne */
+  overflow: hidden; /* Zamedzí vyskakovaniu obsahu mimo boxu */
+  flex-wrap: wrap; /* Umožní, aby sa hodnoty správne prispôsobili */
+}
 
-      .score-item {
-        background-color: #ffffff;
-        padding: 0.75rem 1rem;
-        border-radius: 0.5rem;
-        border: 1px solid #e5e7eb;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-      }
 
       .score-label {
         font-weight: 500;
@@ -89,9 +92,10 @@
         grid-column: span 2;
       }
       .score-global .score-value {
-        background-color: #364052;
-        color: #ffffff;
-      }
+  background-color: #364052;
+  color: #ffffff;
+  padding: 0.5rem 1rem; /* Zmierni padding pre mobilné zariadenia */
+}
 
       .result-text {
         margin-top: 2rem;
@@ -112,20 +116,23 @@
       }
       
       
-      @media (max-width: 768px) {
-        .score {
-          grid-template-columns: 1fr;
-          padding: 0 1rem; /* Pridá padding na mobiloch, aby bol obsah "vnútri" */
-        }
       
-        .score-item {
-          font-size: 1rem;
-        }
-        .result-text {
-          font-size: 1rem;
-          padding: 1rem;
-        }
-      }
+@media (max-width: 768px) {
+  .score {
+    grid-template-columns: 1fr;
+    padding: 0 1rem; /* Zabezpečí padding pre mobil */
+  }
+
+  .score-item {
+    font-size: 1rem;
+    padding: 1rem; /* Trochu viac priestoru pre mobil */
+  }
+
+  .score-global {
+    padding: 1rem; /* Prispôsobíme aj pre mobil */
+  }
+}
+
     </style>
   </head>
   <body>

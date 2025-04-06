@@ -32,7 +32,10 @@
         gap: 1rem 2rem;
         margin-bottom: 2rem;
         font-size: 1.05rem;
-      }
+        overflow: hidden;  /* Zabezpečí, že obsah sa nepreráža */
+        word-wrap: break-word; /* Umožní zlom textu, ak je príliš dlhý */
+      }    
+
 
       .score-item {
         background-color: #ffffff;
@@ -107,14 +110,14 @@
         height: auto;
         margin: 2rem 0;
       }
-
+      
+      
       @media (max-width: 768px) {
         .score {
           grid-template-columns: 1fr;
+          padding: 0 1rem; /* Pridá padding na mobiloch, aby bol obsah "vnútri" */
         }
-        h1 {
-          font-size: 1.8rem;
-        }
+      
         .score-item {
           font-size: 1rem;
         }

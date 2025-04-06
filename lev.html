@@ -2,127 +2,105 @@
 <html lang="sk">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>EQ Výsledok – Lev</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
     <style>
       body {
-        font-family: sans-serif;
-        max-width: 600px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 700px;
         margin: 2rem auto;
-        background-color: #fef9c3;
-        border: 2px solid #facc15;
+        background-color: #f1f4f7;
+        border: 2px solid #e67e22;
         border-radius: 1rem;
-        padding: 2rem;
+        padding: 2rem 2.5rem;
+        color: #3c3c3c;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
       }
+
       h1 {
-        font-size: 1.8rem;
-        margin-bottom: 0.5rem;
-      }
-      p {
-        margin-bottom: 1rem;
-        line-height: 1.5;
-      }
-      canvas {
-        margin: 1rem 0;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #e67e22;
       }
 
-      /* Všeobecný box pre info o TEIQue */
-      .info-box {
-        background-color: #fff8e1;
-        padding: 1.5rem;
-        border-radius: 1rem;
+      .score {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem 1rem;
         margin-bottom: 2rem;
-        border: 2px solid #facc15;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 1.05rem;
       }
 
-      .info-box h2 {
-        font-size: 1.6rem;
-        color: #f59e0b;
-        margin-bottom: 1rem;
-        font-weight: bold;
+      .score-item {
+        background-color: #fef5c9;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #f7d07a;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
-      .info-box p,
-      .info-box ul {
-        font-size: 1.1rem;
+      .score-label {
+        font-weight: 500;
         color: #4b5563;
-        line-height: 1.6;
       }
 
-      .info-box ul {
-        padding-left: 1.5rem;
+      .score-value {
+        font-weight: bold;
+        background-color: #e67e22;
+        color: #fff;
+        padding: 0.25rem 0.6rem;
+        border-radius: 0.4rem;
+        font-variant-numeric: tabular-nums;
       }
 
-      .info-box ul li {
-        margin-bottom: 0.5rem;
-      }
-
-      /* Formátovanie hlavičky a výsledkov zvieraťa */
-      .result-box {
-        background-color: #ffffff;
+      .result-text {
+        margin-top: 2rem;
         padding: 1.5rem;
-        border-radius: 1rem;
-        border: 2px solid #facc15;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      .result-box h1 {
-        font-size: 1.8rem;
-        color: #f59e0b;
-      }
-
-      .result-box p {
-        font-size: 1.2rem;
+        background-color: #fefce8;
+        border: 1px solid #f7d07a;
+        border-radius: 0.75rem;
+        font-size: 1.02rem;
+        line-height: 1.65;
+        text-align: justify;
         color: #333;
       }
 
       canvas {
-        margin-top: 1rem;
+        margin: 2rem 0;
       }
     </style>
   </head>
   <body>
-    <!-- Všeobecné informácie o TEIQue -->
-    <div class="info-box">
-      <h2>O TEIQue-SF dotazníku</h2>
-      <p>
-        TEIQue-SF je dotazník, ktorý meria „trait emotional intelligence“, teda osobnostne zakorenenú schopnosť pracovať s emóciami – nie momentálnu náladu, ale dlhodobý emočný štýl človeka. Výsledky sa pohybujú na 7-bodovej škále, pričom treba mať na pamäti, že adolescenti často (nie vždy) skórujú nižšie ako dospelí ľudia v EQ.
-      </p>
-      <h3>Škála:</h3>
-      <ul>
-        <li> > 2.3 – vysoký podpriemer</li>
-        <li>2.4 – 3.2 – podpriemer</li>
-        <li>3.3 – 4.7 – priemer</li>
-        <li>4.8 – 5.6 – nadpriemer</li>
-        <li>5.7 < – vysoký nadpriemer</li>
-      </ul>
-      <p>
-        Dotazník meria celkové EQ a k tomu ešte štyri špecifické oblasti:
-      </p>
-      <ul>
-        <li><strong>Well-being</strong> – spokojnosť, optimizmus, sebavedomie</li>
-        <li><strong>Sebakontrola</strong> – schopnosť zvládať stres, impulzy</li>
-        <li><strong>Emocionalita</strong> – porozumenie vlastným a cudzím emóciám, empatia</li>
-        <li><strong>Sociabilita</strong> – komunikačné a sociálne zručnosti</li>
-      </ul>
+    <h1>🦁 LEV</h1>
+
+    <div class="score">
+      <div class="score-item"><span class="score-label">Globálne EQ</span> <span class="score-value">4.1</span></div>
+      <div class="score-item"><span class="score-label">Well-being</span> <span class="score-value">3.3</span></div>
+      <div class="score-item"><span class="score-label">Sebakontrola</span> <span class="score-value">3.7</span></div>
+      <div class="score-item"><span class="score-label">Emocionalita</span> <span class="score-value">4.7</span></div>
+      <div class="score-item"><span class="score-label">Sociabilita</span> <span class="score-value">4.0</span></div>
     </div>
 
-    <!-- Výsledky zvieraťa -->
-    <div class="result-box">
-      <h1>🦁 LEV</h1>
-      <p><strong>Globálne EQ:</strong> 4.1</p>
+    <canvas id="eqChart" width="400" height="300"></canvas>
 
-      <canvas id="eqChart" width="400" height="300"></canvas>
-
+    <div class="result-text">
       <p>
-        Tvoje výsledky sú pekne vyvážené. Máš silnú emocionalitu a dobre
-        vyvinutý zmysel pre druhých, no občas môžeš cítiť menšiu stabilitu
-        vnútri. Máš v sebe silu, ale aj citlivosť.
+        Tvoje výsledky sú pekne vyvážené, a celkové EQ je v pohode – v rámci priemeru. To znamená, že máš zdravé základy v práci s emóciami. Najviac ti svieti emocionalita – teda schopnosť rozpoznať, spracovať a porozumieť emóciám (svojim aj cudzím). To je obrovské plus do každého vzťahu, či už priateľského, alebo partnerského. Vieš čítať medzi riadkami a chápeš nálady ľudí okolo seba, čo nie je bežné a fakt sa to cení. 
+        Well-being ti vyšiel ešte v rámci priemeru, ale o čosi nižšie, čo môže naznačovať, že nie vždy sa cítiš úplne dobre vo svojej koži, alebo možno niekedy nedokážeš dať stop negatívnym myšlienkam a pochybnostiam o sebe. To je v niektorých obdobiach človeka úplne normálne :) Dôležité je, aby sa z toho nestal dlhodobý životný postoj. 
+        Som si istý, že máš v sebe kopec silných stránok a vecí, na ktoré sa oplatí byť hrdý. S budovaním zdravého sebavedomia ti môže pomôcť napríklad pozitívna spätná väzba od druhých, alebo písanie si denníka so zameraním na pozitívne skúsenosti.
+        Máš v sebe potenciál veľkej emočnej hĺbky, empatie a porozumenia. A keď k tomu pridáš trochu viac sebalásky, bude z teba emočne veľmi zrelá a vyrovnaná osobnosť; let‘s go! 
+        A keby niečo, tak samozrejme som kedykoľvek tu. :)
       </p>
     </div>
 
     <script>
+      Chart.register(window['chartjs-plugin-annotation']);
+
       const ctx = document.getElementById("eqChart").getContext("2d");
       new Chart(ctx, {
         type: "bar",
@@ -131,15 +109,70 @@
           datasets: [{
             label: "Skóre",
             data: [3.3, 3.7, 4.7, 4.0],
-            backgroundColor: "#facc15",
-            borderRadius: 10
+            backgroundColor: "#e67e22",
+            borderRadius: 10,
+            categoryPercentage: 0.5,
+            barPercentage: 0.92
           }]
         },
         options: {
           scales: {
             y: {
               beginAtZero: true,
-              max: 7
+              max: 7,
+              ticks: {
+                stepSize: 1
+              },
+              grid: {
+                drawTicks: false,
+                color: '#e5e7eb'
+              }
+            }
+          },
+          plugins: {
+            annotation: {
+              annotations: {
+                veryLow: {
+                  type: 'box',
+                  yMin: 0,
+                  yMax: 2.3,
+                  backgroundColor: 'rgba(242, 85, 96, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                low: {
+                  type: 'box',
+                  yMin: 2.4,
+                  yMax: 3.2,
+                  backgroundColor: 'rgba(251, 191, 36, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                average: {
+                  type: 'box',
+                  yMin: 3.3,
+                  yMax: 4.7,
+                  backgroundColor: 'rgba(234, 179, 8, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                high: {
+                  type: 'box',
+                  yMin: 4.8,
+                  yMax: 5.6,
+                  backgroundColor: 'rgba(132, 204, 22, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                },
+                veryHigh: {
+                  type: 'box',
+                  yMin: 5.7,
+                  yMax: 7,
+                  backgroundColor: 'rgba(34, 197, 94, 0.08)',
+                  borderWidth: 0,
+                  drawTime: 'beforeDatasetsDraw'
+                }
+              }
             }
           }
         }

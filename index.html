@@ -12,71 +12,95 @@
     <h1 class="text-2xl sm:text-3xl font-bold mb-4">Zadaj svoje zviera 🐾</h1>
     <p class="text-gray-600 mb-6 text-sm sm:text-base">Tak, ako si ho napísal v dotazníku (napr. "líška").</p>
     
-    <div class="flex flex-col gap-4">
-      <input 
-        type="text" 
-        id="animalInput" 
-        class="w-full px-4 py-3 border border-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
-        placeholder="napr. líška"
-      />
-      <button 
-        onclick="openPage()"
-        class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-colors duration-300 text-lg"
-      >
-        Zobraziť výsledky
-      </button>
-      <div id="errorMessage" class="text-red-500 text-sm h-5">&nbsp;</div>
-    </div>
-  </div>
+    <!-- ...pôvodná stránka -->
+<!-- Doplníme len túto časť pod <div class="flex flex-col gap-4"> -->
 
-  <!-- EMOJI STRIP -->
-  <div class="relative w-full max-w-md overflow-hidden mt-8 h-8 px-4">
-    <div class="absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-slate-50 to-transparent z-10"></div>
-    <div class="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-slate-50 to-transparent z-10"></div>
-    <div class="flex gap-4 whitespace-nowrap animate-scroll">
-      <span class="text-2xl">🐺</span><span class="text-2xl">🐻</span><span class="text-2xl">🦊</span><span class="text-2xl">🦉</span><span class="text-2xl">🐯</span><span class="text-2xl">🦓</span><span class="text-2xl">🐸</span><span class="text-2xl">🦄</span><span class="text-2xl">🐵</span><span class="text-2xl">🐶</span><span class="text-2xl">🐱</span><span class="text-2xl">🐰</span><span class="text-2xl">🐼</span><span class="text-2xl">🦉</span><span class="text-2xl">🐷</span><span class="text-2xl">🐮</span><span class="text-2xl">🐴</span>
-      <span class="text-2xl">🐺</span><span class="text-2xl">🐻</span><span class="text-2xl">🦊</span><span class="text-2xl">🦉</span><span class="text-2xl">🐯</span><span class="text-2xl">🦓</span><span class="text-2xl">🐸</span><span class="text-2xl">🦄</span><span class="text-2xl">🐵</span><span class="text-2xl">🐶</span><span class="text-2xl">🐱</span><span class="text-2xl">🐰</span><span class="text-2xl">🐼</span><span class="text-2xl">🦉</span><span class="text-2xl">🐷</span><span class="text-2xl">🐮</span><span class="text-2xl">🐴</span>
-    </div>
-  </div>
+<div class="flex flex-col gap-4">
+  <input 
+    type="text" 
+    id="animalInput" 
+    class="w-full px-4 py-3 border border-gray-300 rounded-lg text-center text-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"
+    placeholder="napr. líška"
+  />
+  <button 
+    onclick="openPage()"
+    class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition-colors duration-300 text-lg"
+  >
+    Zobraziť výsledky
+  </button>
+  <div id="errorMessage" class="text-red-500 text-sm h-5">&nbsp;</div>
 
-  <style>
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+  <!-- 🔒 Tlačidlo na zobrazenie upload formulára -->
+  <button 
+    onclick="toggleUploadForm()" 
+    class="text-sm text-emerald-600 hover:underline transition mt-2"
+  >
+    🔒 Nahrať súbor anonymne
+  </button>
+
+  <!-- 📎 Upload formulár (skrytý) -->
+  <form 
+    id="uploadForm"
+    action="https://formspree.io/f/yourformid"  <!-- ← sem daj svoj Formspree link -->
+    method="POST" 
+    enctype="multipart/form-data" 
+    class="flex flex-col gap-2 mt-2 hidden"
+  >
+    <textarea 
+      name="message" 
+      placeholder="Poznámka k súboru (voliteľné)" 
+      class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+    ></textarea>
+
+    <input 
+      type="file" 
+      name="upload" 
+      class="w-full text-sm"
+      required
+    />
+
+    <button 
+      type="submit" 
+      class="bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold py-2 rounded-lg transition-colors duration-300"
+    >
+      Odoslať
+    </button>
+  </form>
+</div>
+
+<script>
+  function openPage() {
+    const animal = document.getElementById("animalInput").value.trim().toLowerCase();
+    const errorMessage = document.getElementById("errorMessage");
+    errorMessage.innerHTML = "&nbsp;";
+    if (!animal) {
+      errorMessage.textContent = "Ešte si nič nezadal.";
+      return;
     }
 
-    .animate-scroll {
-      animation: scroll 20s linear infinite;
+    const normalizedAnimal = animal.normalize("NFD").replace(/[̀-ͯ]/g, "");
+    const validAnimals = ["nosorožec", "lev", "chobotnica", "klokan"]
+      .map(a => a.normalize("NFD").replace(/[̀-ͯ]/g, ""));
+
+    if (validAnimals.includes(normalizedAnimal)) {
+      window.location.href = `${normalizedAnimal}.html`;
+    } else {
+      errorMessage.textContent = "Toto zviera si akurát chilluje v Karibiku. Skús nejaké iné.";
     }
-  </style>
+  }
 
-  <script>
-    function openPage() {
-      const animal = document.getElementById("animalInput").value.trim().toLowerCase();
-      const errorMessage = document.getElementById("errorMessage");
-      errorMessage.innerHTML = "&nbsp;";
-      if (!animal) {
-        errorMessage.textContent = "Ešte si nič nezadal.";
-        return;
-      }
+  function toggleUploadForm() {
+    const form = document.getElementById("uploadForm");
+    form.classList.toggle("hidden");
+  }
 
-      const normalizedAnimal = animal.normalize("NFD").replace(/[̀-ͯ]/g, "");
-      const validAnimals = ["nosorožec", "lev", "chobotnica", "klokan"]
-        .map(a => a.normalize("NFD").replace(/[̀-ͯ]/g, ""));
-
-      if (validAnimals.includes(normalizedAnimal)) {
-        window.location.href = `${normalizedAnimal}.html`;
-      } else {
-        errorMessage.textContent = "Toto zviera si akurát chilluje v Karibiku. Skús nejaké iné.";
-      }
+  document.getElementById("animalInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      openPage();
     }
+  });
+</script>
 
-    document.getElementById("animalInput").addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        openPage();
-      }
-    });
-  </script>
 
 </body>
 </html>

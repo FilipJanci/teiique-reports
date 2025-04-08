@@ -57,6 +57,27 @@
 </div>
 </div>
 
+<!-- EMOJI STRIP -->
+  <div class="relative w-full max-w-md overflow-hidden mt-8 h-8 px-4">
+    <div class="absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-slate-50 to-transparent z-10"></div>
+    <div class="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-slate-50 to-transparent z-10"></div>
+    <div class="flex gap-4 whitespace-nowrap animate-scroll">
+      <span class="text-2xl">🐺</span><span class="text-2xl">🐻</span><span class="text-2xl">🦊</span><span class="text-2xl">🦉</span><span class="text-2xl">🐯</span><span class="text-2xl">🦓</span><span class="text-2xl">🐸</span><span class="text-2xl">🦄</span><span class="text-2xl">🐵</span><span class="text-2xl">🐶</span><span class="text-2xl">🐱</span><span class="text-2xl">🐰</span><span class="text-2xl">🐼</span><span class="text-2xl">🦉</span><span class="text-2xl">🐷</span><span class="text-2xl">🐮</span><span class="text-2xl">🐴</span>
+      <span class="text-2xl">🐺</span><span class="text-2xl">🐻</span><span class="text-2xl">🦊</span><span class="text-2xl">🦉</span><span class="text-2xl">🐯</span><span class="text-2xl">🦓</span><span class="text-2xl">🐸</span><span class="text-2xl">🦄</span><span class="text-2xl">🐵</span><span class="text-2xl">🐶</span><span class="text-2xl">🐱</span><span class="text-2xl">🐰</span><span class="text-2xl">🐼</span><span class="text-2xl">🦉</span><span class="text-2xl">🐷</span><span class="text-2xl">🐮</span><span class="text-2xl">🐴</span>
+    </div>
+  </div>
+
+  <style>
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .animate-scroll {
+      animation: scroll 20s linear infinite;
+    }
+  </style>
+    
 <script>
   function openPage() {
     const animal = document.getElementById("animalInput").value.trim().toLowerCase();

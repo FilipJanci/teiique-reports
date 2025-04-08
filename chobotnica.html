@@ -83,40 +83,40 @@
       margin-left: 0.3rem;
     }
   
-    .tooltip-icon {
-      font-weight: 600;
-      font-size: 0.85rem;
-      background-color: #e2e8f0;
-      color: #334155;
-      border-radius: 9999px;
-      padding: 0.1rem 0.4rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    }
+      .tooltip-icon {
+        font-weight: 600;
+        font-size: 0.85rem;
+        background-color: #202326;
+        color: #f2f7fc;
+        border-radius: 9999px;
+        padding: 0.1rem 0.4rem;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+     }
   
-    .tooltip-text {
-      visibility: hidden;
-      width: max-content;
-      max-width: 200px;
-      background-color: #1e293b;
-      color: #f8fafc;
-      text-align: left;
-      border-radius: 0.5rem;
-      padding: 0.5rem 0.8rem;
-      position: absolute;
-      z-index: 1;
-      top: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
+      .tooltip-text {
+        visibility: hidden;
+        width: max-content;
+        max-width: 200px;
+        background-color: #1e293b;
+        color: #f8fafc;
+        text-align: left;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.8rem;
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-size: 0.8rem;
+        line-height: 1.4;
+      }
   
-    .tooltip-container:hover .tooltip-text {
-      visibility: visible;
-      opacity: 1;
-    }
+      .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
     
     @media (max-width: 600px) {
       body {
@@ -141,16 +141,14 @@
 </head>
 <body>
 
-  <h1>🐙 CHOBOTNICA</h1>
+  <h1>🐙 CHOBOTNICA <span class="tooltip-container">
+          <span class="tooltip-icon">?</span>
+          <span class="tooltip-text">TEIQue je osobnostný dotazník so 7-stupňovou škálou</span>
+        </span></h1>
 
   <div class="score-grid">
     <div class="score-item global">
-      <span>Globálne EQ
-        <span class="tooltip-container">
-          <span class="tooltip-icon">?</span>
-          <span class="tooltip-text">TEIQue je osobnostný dotazník so 7-stupňovou škálou</span>
-        </span>
-      </span>
+      <span>Globálne EQ</span>
       <span class="score-value default">4.4</span>
     </div>
     <div class="score-item">

@@ -76,6 +76,48 @@
       text-align: justify;
     }
 
+      .tooltip-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      margin-left: 0.3rem;
+    }
+  
+    .tooltip-icon {
+      font-weight: 600;
+      font-size: 0.85rem;
+      background-color: #e2e8f0;
+      color: #334155;
+      border-radius: 9999px;
+      padding: 0.1rem 0.4rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+  
+    .tooltip-text {
+      visibility: hidden;
+      width: max-content;
+      max-width: 200px;
+      background-color: #1e293b;
+      color: #f8fafc;
+      text-align: left;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      position: absolute;
+      z-index: 1;
+      top: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+  
+    .tooltip-container:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    
     @media (max-width: 600px) {
       body {
         margin: 1.5rem 1rem;

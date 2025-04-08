@@ -90,9 +90,13 @@
   }
 
   function toggleUploadForm() {
-    const form = document.getElementById("uploadForm");
-    form.classList.toggle("hidden");
+  const form = document.getElementById("uploadForm");
+  if (form.classList.contains("hidden")) {
+    form.classList.remove("hidden");
+  } else {
+    form.classList.add("hidden");
   }
+}
 
   document.getElementById("animalInput").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {

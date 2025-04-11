@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EQ Výsledok – Pes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      max-width: 500px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #ebf0f7;
+      border-radius: 2rem;
+      box-shadow: 0px 10px 20px rgb(139, 87, 45, 0.2);
+      color: #2b323b;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #2b323b;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      text-align: center;
+      color: #334155;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .score-item {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .score-item.global {
+      grid-column: span 2;
+      background: #e0f2fe;
+      font-weight: 600;
+      border: 2px solid #0284c7;
+    }
+
+    .score-value {
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+    }
+
+    .high { background: #34d399; color: #065f46; }
+    .low { background: #fde68a; color: #92400e; }
+    .default { background: #e2e8f0; color: #334155; }
+
+    .result {
+      margin-top: 1rem;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .tooltip-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      margin-left: 0.3rem;
+    }
+  
+      .tooltip-icon {
+        font-weight: 600;
+        font-size: 0.85rem;
+        background-color: #202326;
+        color: #f2f7fc;
+        border-radius: 9999px;
+        padding: 0.1rem 0.4rem;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+     }
+  
+      .tooltip-text {
+        visibility: hidden;
+        width: max-content;
+        max-width: 200px;
+        background-color: #1e293b;
+        color: #f8fafc;
+        text-align: left;
+        border-radius: 0.5rem;
+        padding: 0.5rem 0.8rem;
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        font-size: 0.8rem;
+        line-height: 1.4;
+      }
+  
+      .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+    
+    @media (max-width: 600px) {
+      body {
+        margin: 1.5rem 1rem;
+        padding: 1.5rem 1rem;
+        border-radius: 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .score-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .score-item.global {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🦘 Pes <span class="tooltip-container">
+          <span class="tooltip-icon">?</span>
+          <span class="tooltip-text">TEIQue-SF je dotazník, ktorý meria schopnosť pracovať s emóciami. Výsledky sa pohybujú na 7-bodovej škále, pričom adolescenti často (nie vždy) skórujú nižšie ako dospelí ľudia v EQ.
+<br><br>Škála:
+<br>> 2.3		vysoký podpriemer
+<br>2.4 – 3.2	podpriemer
+<br>3.3 – 4.7	priemer
+<br>4.8 – 5.6	nadpriemer
+<br>5.7 <		vysoký nadpriemer
+<br><br>Dotazník meria celkové EQ a k tomu štyri špecifické oblasti:
+<br>1.	Well-being – spokojnosť, optimizmus, sebavedomie
+<br>2.	Sebakontrola – schopnosť zvládať stres, impulzy
+<br>3.	Emocionalita – porozumenie vlastným a cudzím emóciám, empatia
+<br>4.	Sociabilita – komunikačné a sociálne zručnosti
+
+      </span>
+        </span> </h1>
+
+  <div class="score-grid">
+    <div class="score-item global">
+      <span>Globálne EQ</span>
+      <span class="score-value default">4.2</span>
+    </div>
+    <div class="score-item">
+      <span>Well-being</span>
+      <span class="score-value low">2.0</span>
+    </div>
+    <div class="score-item">
+      <span>Sebakontrola</span>
+      <span class="score-value default">4.3</span>
+    </div>
+    <div class="score-item">
+      <span>Emocionalita</span>
+      <span class="score-value high">4.9</span>
+    </div>
+    <div class="score-item">
+      <span>Sociabilita</span>
+      <span class="score-value high">5.0</span>
+    </div>
+  </div>
+
+  <h2>Zhrnutie</h2>
+  <div class="result">
+    <p>And IIIIIIIIIIIII eh-IIIIIII wil alllwayyss love youuuuuuuu.u.u.u.u.uuuuuuu</p>
+  </div>
+
+</body>
+</html>
